@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Mahasiswa</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Data Mahasiswa</h1>
+
+    <form id="search-form">
+      <label for="npm">NIM:</label>
+      <input type="text" name="npm" id="npm" />
+      <input type="submit" value="Cari" />
+    </form>
+
+    <div id="student-details"></div>
+
+    <script>
+      $(document).ready(function () {
+        // Submit form using AJAX
+        $("#search-form").submit(function (event) {
+          event.preventDefault();
+
+          // Retrieve the NPM from the input field
+          var npm = $("#npm").val();
+
+          // Make an AJAX request
+          $.ajax({
+            url: "retrieve_student.php", // PHP script to handle the request
+            type: "GET",
+            data: { npm: npm },
+            success: function (response) {
+              $("#student-details").html(response);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
